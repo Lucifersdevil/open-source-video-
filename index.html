@@ -19,11 +19,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -33,211 +40,96 @@
         
         .subtitle {
             color: #888;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        
-        label {
+        .btn {
             display: block;
-            margin-bottom: 10px;
-            color: #ccc;
-            font-weight: 500;
-        }
-        
-        input, textarea, select {
             width: 100%;
-            padding: 15px;
-            background: #2a2a2a;
-            border: 2px solid #3a3a3a;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        button {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 15px;
             color: #fff;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
+            text-decoration: none;
         }
         
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        .btn:hover {
+            transform: translateY(-3px);
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
         
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .btn-poe {
+            border-color: #764ba2;
         }
         
-        .result {
+        .btn-poe:hover {
+            border-color: #764ba2;
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
+        }
+        
+        .btn-huggingface {
+            border-color: #FFAA00;
+        }
+        
+        .btn-huggingface:hover {
+            border-color: #FFAA00;
+            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3);
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .info {
             margin-top: 30px;
             padding: 20px;
-            background: #2a2a2a;
-            border-radius: 10px;
-            display: none;
+            background: #1a1a1a;
+            border-radius: 15px;
+            text-align: left;
         }
         
-        .result.show {
-            display: block;
+        .info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
         }
         
-        .result video {
-            width: 100%;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .loading.show {
-            display: block;
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #3a3a3a;
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .error {
-            background: #3a1a1a;
-            border: 1px solid #ff4444;
-            color: #ff4444;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .error.show {
-            display: block;
+        .info p {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <h1>🎬 AI Video Generator</h1>
-    <p class="subtitle">Create amazing videos from text prompts</p>
-    
     <div class="container">
-        <label for="prompt">Prompt</label>
-        <textarea id="prompt" placeholder="A beautiful sunset over the ocean waves..."></textarea>
+        <h1>🎬 AI Video Generator</h1>
+        <p class="subtitle">Click a platform to generate videos</p>
         
-        <label for="model">Model</label>
-        <select id="model">
-            <option value="kling">Kling AI (Best Quality)</option>
-            <option value="luma">Luma Dream Machine</option>
-            <option value="runway">Runway Gen-3</option>
-        </select>
+        <a href="https://poe.com/SVI-2-0-Pro" target="_blank" class="btn btn-poe">
+            <span class="icon">🤖</span> SVI 2.0 Pro (Best Quality)
+        </a>
         
-        <label for="duration">Duration</label>
-        <select id="duration">
-            <option value="5">5 seconds</option>
-            <option value="10">10 seconds</option>
-        </select>
+        <a href="https://huggingface.co/spaces?search=video+generation" target="_blank" class="btn btn-huggingface">
+            <span class="icon">🔍</span> HuggingFace Free Spaces
+        </a>
         
-        <button id="generateBtn" onclick="generateVideo()">Generate Video</button>
+        <a href="https://runwayml.com/creative-suite/gen-3-alpha/" target="_blank" class="btn">
+            <span class="icon">🎨</span> Runway (Sign Up Required)
+        </a>
         
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Generating your video... This may take a few minutes.</p>
-        </div>
-        
-        <div class="error" id="error"></div>
-        
-        <div class="result" id="result">
-            <h3>✅ Video Generated!</h3>
-            <video id="videoPlayer" controls></video>
-            <a id="downloadLink" href="#" download>Download Video</a>
+        <div class="info">
+            <h3>💡 How to use</h3>
+            <p>Click any button above to open the AI video generator. 
+            Enter your prompt and generate amazing videos for free!</p>
         </div>
     </div>
-    
-    <script>
-        async function generateVideo() {
-            const prompt = document.getElementById('prompt').value;
-            const model = document.getElementById('model').value;
-            const duration = document.getElementById('duration').value;
-            
-            if (!prompt) {
-                showError('Please enter a prompt');
-                return;
-            }
-            
-            // Hide previous results
-            document.getElementById('result').classList.remove('show');
-            document.getElementById('error').classList.remove('show');
-            document.getElementById('loading').classList.add('show');
-            document.getElementById('generateBtn').disabled = true;
-            
-            try {
-                const response = await fetch('/api/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, model, duration })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    document.getElementById('videoPlayer').src = data.videoUrl;
-                    document.getElementById('downloadLink').href = data.videoUrl;
-                    document.getElementById('result').classList.add('show');
-                } else {
-                    showError(data.error || 'Failed to generate video');
-                }
-            } catch (err) {
-                showError('Error: ' + err.message);
-            } finally {
-                document.getElementById('loading').classList.remove('show');
-                document.getElementById('generateBtn').disabled = false;
-            }
-        }
-        
-        function showError(msg) {
-            const errorEl = document.getElementById('error');
-            errorEl.textContent = msg;
-            errorEl.classList.add('show');
-        }
-    </script>
 </body>
 </html>
