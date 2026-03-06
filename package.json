@@ -1,12 +1,8 @@
 {
   "name": "open-source-video",
   "version": "1.0.0",
-  "description": "AI Video Generator Web App",
+  "private": true,
   "scripts": {
-    "dev": "vercel dev",
-    "start": "vercel dev"
-  },
-  "dependencies": {
-    "vercel": "^32.0.0"
+    "dev": "vercel dev"
   }
 }
