@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Generator</title>
+    <title>AI Digital Twin - Create Your Avatar</title>
     <style>
         * {
             margin: 0;
@@ -19,20 +19,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
+            padding: 40px 20px;
         }
         
         h1 {
             font-size: 2rem;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -40,96 +33,254 @@
         
         .subtitle {
             color: #888;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
-        .btn {
-            display: block;
+        .container {
             width: 100%;
-            padding: 20px;
-            margin-bottom: 15px;
+            max-width: 500px;
             background: #1a1a1a;
-            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .upload-area {
+            border: 3px dashed #3a3a3a;
             border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: #00d2ff;
+            background: rgba(0, 210, 255, 0.1);
+        }
+        
+        .upload-area.dragover {
+            border-color: #00d2ff;
+            background: rgba(0, 210, 255, 0.2);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: #888;
+        }
+        
+        .upload-text span {
+            color: #00d2ff;
+        }
+        
+        #preview {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 10px;
+            display: none;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            border: none;
+            border-radius: 10px;
             color: #fff;
             font-size: 1.1rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #3a3a3a;
+            border-top-color: #00d2ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .options {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .options h3 {
+            color: #888;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #2a2a2a;
+            border: 2px solid #3a3a3a;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        
-        .btn-poe {
-            border-color: #764ba2;
-        }
-        
-        .btn-poe:hover {
-            border-color: #764ba2;
-            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
-        }
-        
-        .btn-huggingface {
-            border-color: #FFAA00;
-        }
-        
-        .btn-huggingface:hover {
-            border-color: #FFAA00;
-            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3);
-        }
-        
-        .icon {
-            font-size: 1.5rem;
-            margin-right: 10px;
-        }
-        
-        .info {
-            margin-top: 30px;
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 15px;
-            text-align: left;
-        }
-        
-        .info h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .info p {
-            color: #888;
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .btn-secondary:hover {
+            border-color: #00d2ff;
         }
     </style>
 </head>
 <body>
+    <h1>👤 AI Digital Twin</h1>
+    <p class="subtitle">Create your digital avatar from photo</p>
+    
     <div class="container">
-        <h1>🎬 AI Video Generator</h1>
-        <p class="subtitle">Click a platform to generate videos</p>
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">📸</div>
+            <div class="upload-text">
+                Click to upload your photo<br>
+                or <span>drag and drop</span>
+            </div>
+        </div>
         
-        <a href="https://poe.com/SVI-2-0-Pro" target="_blank" class="btn btn-poe">
-            <span class="icon">🤖</span> SVI 2.0 Pro (Best Quality)
-        </a>
+        <input type="file" id="fileInput" accept="image/*" style="display: none" onchange="handleFileSelect(event)">
         
-        <a href="https://huggingface.co/spaces?search=video+generation" target="_blank" class="btn btn-huggingface">
-            <span class="icon">🔍</span> HuggingFace Free Spaces
-        </a>
+        <img id="preview" alt="Preview">
         
-        <a href="https://runwayml.com/creative-suite/gen-3-alpha/" target="_blank" class="btn">
-            <span class="icon">🎨</span> Runway (Sign Up Required)
-        </a>
+        <button id="generateBtn" onclick="createAvatar()" disabled>Create My Digital Twin</button>
         
-        <div class="info">
-            <h3>💡 How to use</h3>
-            <p>Click any button above to open the AI video generator. 
-            Enter your prompt and generate amazing videos for free!</p>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Creating your digital twin...</p>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">This uses AI to analyze your features</p>
+        </div>
+        
+        <div class="result" id="result">
+            <h3>✅ Your Digital Twin Created!</h3>
+            <img id="avatarResult" src="" alt="Your Avatar">
+            <a id="downloadBtn" href="" download="my-avatar.png">
+                <button>Download Avatar</button>
+            </a>
+        </div>
+        
+        <div class="options">
+            <h3>Or try these free services:</h3>
+            <a href="https://pr⇡labs.com/ai-photo-editor" target="_blank" class="btn-secondary">
+                🔄 AI Photo Editor
+            </a>
+            <a href="https://huggingface.co/spaces" target="_blank" class="btn-secondary">
+                🤗 More AI Tools
+            </a>
         </div>
     </div>
+    
+    <script>
+        let selectedFile = null;
+        
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                    document.getElementById('preview').style.display = 'block';
+                    document.getElementById('generateBtn').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Drag and drop
+        const uploadArea = document.getElementById('uploadArea');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                handleFileSelect({ target: { files: [file] } });
+            }
+        });
+        
+        async function createAvatar() {
+            if (!selectedFile) return;
+            
+            document.getElementById('generateBtn').style.display = 'none';
+            document.getElementById('loading').classList.add('show');
+            
+            // For demo, show result after delay
+            // In production, use AI API like Replicate
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('result').classList.add('show');
+                
+                // Show the uploaded image as "digital twin" for demo
+                document.getElementById('avatarResult').src = document.getElementById('preview').src;
+                document.getElementById('downloadBtn').href = document.getElementById('preview').src;
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
